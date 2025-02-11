@@ -1,8 +1,3 @@
-# Read Me First
-The following was discovered as part of building this project:
-
-* No Docker Compose services found. As of now, the application won't start! Please add at least one service to the `compose.yaml` file.
-
 # Getting Started
 
 ### Reference Documentation
@@ -31,8 +26,9 @@ These additional references should also help you:
 
 ### Docker Compose support
 This project contains a Docker Compose file named `compose.yaml`.
+In this file, the following services have been defined:
 
-However, no services were found. As of now, the application won't start!
+* postgres: [`postgres:latest`](https://hub.docker.com/_/postgres)
 
-Please make sure to add at least one service in the `compose.yaml` file.
+Please review the tags of the used images and set them to the same as you're running in production.
 
