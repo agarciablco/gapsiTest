@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
+@ToString
 public class Response<T> {
 
     private int statusCode;
