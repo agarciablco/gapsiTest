@@ -1,0 +1,140 @@
+openapi: 3.0.3
+info:
+  title: Ejercicio de prueba Gapsi. Gestión de artículos
+  description: |-
+    Este es un ejercicio realizado para generar las APIs necesarias para gestionar la información requerida de los artículos
+  contact:
+    email: agarciabln@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+tags:
+  - name: Artículos
+    description: Informacion completa de los articulos y su actualización
+paths:
+  /articles:
+    put:
+      tags:
+        - article
+      summary: Actualiza la información de un artículo
+      description: Actualiza la información de un artículo existente a través del ID
+      operationId: updateArticle
+      parameters:
+        - name: id
+          in: query
+          description: Identificador del artículo
+          required: true
+          schema:
+            type: string
+            default: available
+      requestBody:
+        description: Actualiza tanto la descrioción como el modelo de un articulo
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Article'
+        required: true
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Article'
+        '404':
+          description: Artículo no encontrado
+        '500':
+          description: Error interno. No fue posible realizar la actualización
+    
+    get:
+      tags:
+        - article
+      summary: Obtiene todos los artiículos en la BD
+      description: Obtiene toda la información de todos los artículos que se encuentran guardados en la BD
+      operationId: getArticles
+      responses:   
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'
+        '500':
+          description: Error interno. No fue posible realizar la actualización
+  
+  /articles{id}:
+    get:
+      tags:
+        - article
+      summary: Obtiene los articulos por ID
+      description: Obtiene el artículo correspondiente al ID dado
+      operationId: getArticlesById
+      parameters:
+        - name: id
+          in: path
+          description: Identificador del artículo
+          required: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Article'          
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/Article'
+        '404':
+          description: Artículo no encontrado
+        '500':
+          description: Error interno. No fue posible realizar la actualización
+components:
+  schemas:
+    Article:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identificador
+          example: '1'
+        nombre:
+          type: string
+          description: Nombre del artículo
+          example: 'Computadora'
+        descripcion:
+          type: string
+          description: 'Descripción del artículo'
+          example: 1
+        precio:
+          type: number
+          description: Precio del artículo
+          example: 200.50
+        modelo:
+          type: string
+          description: Modelo del artículo
+          example: 'NASWXCXS'
+  requestBodies:
+    Article:
+      description: Articulos que deben ser actualizados
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Article'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Article'
+  
